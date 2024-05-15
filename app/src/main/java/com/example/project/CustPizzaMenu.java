@@ -19,6 +19,7 @@ public class CustPizzaMenu extends AppCompatActivity {
 
     Button button;
     LinearLayout linearLayout;
+    LinearLayout linearLayout2;
 
 
     @Override
@@ -44,18 +45,45 @@ public class CustPizzaMenu extends AppCompatActivity {
         button.setText(text);
     }
 
+//    public void fillPizzas(List<Pizza> pizzas) {
+//        linearLayout.removeAllViews();
+//        for (int i = 0; i < pizzas.size(); i++) {
+//            TextView textView = new TextView(this);
+//            textView.setText(pizzas.get(i).getName());
+//
+//
+//
+//
+//            linearLayout.addView(textView);
+//
+//
+//        }
+//    }
+
     public void fillPizzas(List<Pizza> pizzas) {
         linearLayout.removeAllViews();
         for (int i = 0; i < pizzas.size(); i++) {
-            TextView textView = new TextView(this);
-            textView.setText(pizzas.get(i).getName());
+            // Create a horizontal LinearLayout to hold name and index
+            LinearLayout horizontalLayout = new LinearLayout(this);
+            horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 
+            // Create a TextView for pizza name
+            TextView nameTextView = new TextView(this);
+            nameTextView.setText(pizzas.get(i).getName());
 
+            // Create a TextView for pizza index (assuming you want to display the index)
+            TextView indexTextView = new TextView(this);
+            indexTextView.setText("\t\t"+ String.valueOf(i));
 
-            linearLayout.addView(textView);
-           
+            // Add the TextViews to the horizontal layout
+            horizontalLayout.addView(nameTextView);
+            horizontalLayout.addView(indexTextView);
+
+            // Add the horizontal layout to the main LinearLayout
+            linearLayout.addView(horizontalLayout);
         }
     }
+
 
 
     public void setProgress(boolean progress) {
