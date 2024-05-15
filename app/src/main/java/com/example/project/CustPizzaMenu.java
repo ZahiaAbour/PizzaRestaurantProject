@@ -20,6 +20,7 @@ public class CustPizzaMenu extends AppCompatActivity {
     Button button;
     LinearLayout linearLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +48,12 @@ public class CustPizzaMenu extends AppCompatActivity {
         linearLayout.removeAllViews();
         for (int i = 0; i < pizzas.size(); i++) {
             TextView textView = new TextView(this);
-            textView.setText(pizzas.get(i).toString());
+            textView.setText(pizzas.get(i).getName());
+
+
+
             linearLayout.addView(textView);
+           
         }
     }
 
