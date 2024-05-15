@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.List;
 
@@ -60,29 +64,161 @@ public class CustPizzaMenu extends AppCompatActivity {
 //        }
 //    }
 
-    public void fillPizzas(List<Pizza> pizzas) {
-        linearLayout.removeAllViews();
-        for (int i = 0; i < pizzas.size(); i++) {
-            // Create a horizontal LinearLayout to hold name and index
-            LinearLayout horizontalLayout = new LinearLayout(this);
-            horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+//    public void fillPizzas(List<Pizza> pizzas) {
+//        linearLayout.removeAllViews();
+//        for (int i = 0; i < pizzas.size(); i++) {
+//            // Create a horizontal LinearLayout to hold name and index
+//            LinearLayout horizontalLayout = new LinearLayout(this);
+//            horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+//
+//            // Create a TextView for pizza name
+//            TextView nameTextView = new TextView(this);
+//            nameTextView.setText(pizzas.get(i).getName());
+//
+//            // Create a TextView for pizza index (assuming you want to display the index)
+//            TextView indexTextView = new TextView(this);
+//            indexTextView.setText("\t\t"+ String.valueOf(i));
+//
+//            // Add the TextViews to the horizontal layout
+//            horizontalLayout.addView(nameTextView);
+//            horizontalLayout.addView(indexTextView);
+//
+//            // Add the horizontal layout to the main LinearLayout
+//            linearLayout.addView(horizontalLayout);
+//        }
+//    }
 
-            // Create a TextView for pizza name
-            TextView nameTextView = new TextView(this);
-            nameTextView.setText(pizzas.get(i).getName());
 
-            // Create a TextView for pizza index (assuming you want to display the index)
-            TextView indexTextView = new TextView(this);
-            indexTextView.setText("\t\t"+ String.valueOf(i));
+/////////////////////////////////////////////////////////
+    //////////////////////////////////   shows as Alert when clicked (pop ip)
+//    private void showPizzaDetails(String name, String price) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        View dialogView = getLayoutInflater().inflate(R.layout.pizza_details, null);
+//        builder.setView(dialogView);
+//
+//        TextView pizzaNameTextView = dialogView.findViewById(R.id.pizzaNameTextView);
+//        TextView pizzaPriceTextView = dialogView.findViewById(R.id.pizzaPriceTextView);
+//
+//        pizzaNameTextView.setText(name);
+//        pizzaPriceTextView.setText(price);
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void fillPizzas(List<Pizza> pizzas) {
+//        linearLayout.removeAllViews();
+//        for (int i = 0; i < pizzas.size(); i++) {
+//            final String pizzaName = pizzas.get(i).getName();
+//            final String pizzaPrice = String.valueOf(i);
+//
+//            TextView textView = new TextView(this);
+//            textView.setText(pizzaName);
+//            textView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showPizzaDetails(pizzaName, pizzaPrice);
+//                }
+//            });
+//
+//            linearLayout.addView(textView);
+//        }
+//    }
 
-            // Add the TextViews to the horizontal layout
-            horizontalLayout.addView(nameTextView);
-            horizontalLayout.addView(indexTextView);
 
-            // Add the horizontal layout to the main LinearLayout
-            linearLayout.addView(horizontalLayout);
+////////////////////////////////////////// Fragments
+public void fillPizzas(List<Pizza> pizzas) {
+    linearLayout.removeAllViews();
+    for (final Pizza pizza : pizzas) {
+        TextView textView = new TextView(this);
+        final String pizzaName = pizza.getName(); // Capture pizza name locally
+//        textView.setText(pizza.getName());
+        textView.setText(pizzaName);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showPizzaDetails(pizza.getName(), pizza.getPrice().toString());
+//                showPizzaDetails(pizza.getName(), "15example");
+                showPizzaDetails(pizzaName, "15example");
+            }
+        });
+        linearLayout.addView(textView);
+    }
+}
+
+//    private void showPizzaDetails(String name, String price) {
+//        findViewById(R.id.mainTextView).setVisibility(View.GONE);
+//        findViewById(R.id.button).setVisibility(View.GONE);
+//        findViewById(R.id.layout).setVisibility(View.GONE);
+//
+//
+//        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price);
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment_container, fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
+
+
+    private void showPizzaDetails(String name, String price) {
+        // Hide other views
+        findViewById(R.id.mainTextView).setVisibility(View.GONE);
+        findViewById(R.id.button).setVisibility(View.GONE);
+        findViewById(R.id.layout).setVisibility(View.GONE);
+
+        // Get the FragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Begin a FragmentTransaction
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        // Create a new instance of the fragment with the provided name and price
+        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price);
+
+        // Replace the existing fragment with the new instance
+        transaction.replace(R.id.fragment_container, fragment, "PizzaDetailsFragment");
+
+        // Add the transaction to the back stack
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag("PizzaDetailsFragment");
+        if (fragment != null && ((Fragment) fragment).isVisible()) {
+            // If the PizzaDetailsFragment is visible, detach it
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.detach(fragment);
+            transaction.commit();
+            // Make the list views visible again
+            findViewById(R.id.mainTextView).setVisibility(View.VISIBLE);
+            findViewById(R.id.button).setVisibility(View.VISIBLE);
+            findViewById(R.id.layout).setVisibility(View.VISIBLE);
+        } else {
+            // If no fragment is visible or it's not the PizzaDetailsFragment, perform default back press behavior
+            super.onBackPressed();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
