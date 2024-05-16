@@ -20,4 +20,11 @@
         android:textSize="18sp"
         android:textStyle="italic"/>
 
+    <ImageView
+        android:id="@+id/Pizzaimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+          />
+
 </LinearLayout>

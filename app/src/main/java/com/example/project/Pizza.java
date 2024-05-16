@@ -4,6 +4,7 @@ public class Pizza {
     private int ID;
     private String name;
     private Double price;
+    private String imageUrl;
 
     public Pizza( ) {
 
@@ -64,4 +65,11 @@ public class Pizza {
     }
 
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }

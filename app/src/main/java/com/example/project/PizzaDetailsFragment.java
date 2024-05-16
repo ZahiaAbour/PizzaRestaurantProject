@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -18,19 +20,23 @@ public class PizzaDetailsFragment extends Fragment {
 
     private static final String ARG_PIZZA_NAME = "pizza_name";
     private static final String ARG_PIZZA_PRICE = "pizza_price";
+    private static final String ARG_PIZZA_URL = "pizza_image";
 
     private String pizzaName;
     private String pizzaPrice;
+    private String pizzaURL;
+
 
     public PizzaDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static PizzaDetailsFragment newInstance(String pizzaName, String pizzaPrice) {
+    public static PizzaDetailsFragment newInstance(String pizzaName, String pizzaPrice, String pizzaURL ) {
         PizzaDetailsFragment fragment = new PizzaDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PIZZA_NAME, pizzaName);
         args.putString(ARG_PIZZA_PRICE, pizzaPrice);
+        args.putString(ARG_PIZZA_URL, pizzaURL);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,6 +47,7 @@ public class PizzaDetailsFragment extends Fragment {
         if (getArguments() != null) {
             pizzaName = getArguments().getString(ARG_PIZZA_NAME);
             pizzaPrice = getArguments().getString(ARG_PIZZA_PRICE);
+            pizzaURL = getArguments().getString(ARG_PIZZA_URL);
         }
     }
 
@@ -52,11 +59,22 @@ public class PizzaDetailsFragment extends Fragment {
 
         TextView pizzaNameTextView = view.findViewById(R.id.pizzaNameTextView);
         TextView pizzaPriceTextView = view.findViewById(R.id.pizzaPriceTextView);
+        ImageView imageView=  view.findViewById(R.id.Pizzaimage);
 
         // Set the pizza name and price to the TextViews
         pizzaNameTextView.setText(pizzaName);
         pizzaPriceTextView.setText(pizzaPrice);
+        ConnectionAsyncTask t= new ConnectionAsyncTask();
+//        String imageURL = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png";
+        String imageURL =pizzaURL;
+
+        t.loadImageFromUrl(imageURL,imageView);
 
         return view;
     }
+
+
+
+
+
 }

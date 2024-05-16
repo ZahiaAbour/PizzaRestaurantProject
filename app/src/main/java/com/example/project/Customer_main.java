@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -59,8 +60,7 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//        menuItem = navigationView.getMenu().findItem(R.id.c_home);
-//        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_LONG).show();
+
 
         int id = menuItem.getItemId();
         if (id == R.id.c_home) {

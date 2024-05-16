@@ -1,9 +1,11 @@
 package com.example.project;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ public class CustPizzaMenu extends AppCompatActivity {
     Button button;
     LinearLayout linearLayout;
     LinearLayout linearLayout2;
+    ImageView imageView;
+
 
 
     @Override
@@ -33,6 +37,7 @@ public class CustPizzaMenu extends AppCompatActivity {
 
         button = findViewById(R.id.button);
         linearLayout = findViewById(R.id.layout);
+//        imageView = findViewById(R.id.imageView); // Add this line
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +48,9 @@ public class CustPizzaMenu extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     public void setButtonText(String text) {
@@ -131,60 +139,45 @@ public void fillPizzas(List<Pizza> pizzas) {
     linearLayout.removeAllViews();
     for (final Pizza pizza : pizzas) {
         TextView textView = new TextView(this);
-        final String pizzaName = pizza.getName(); // Capture pizza name locally
-//        textView.setText(pizza.getName());
-        textView.setText(pizzaName);
 
-        textView.setOnClickListener(new View.OnClickListener() {
+        textView.setText(pizza.getName());
+         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                showPizzaDetails(pizza.getName(), pizza.getPrice().toString());
-//                showPizzaDetails(pizza.getName(), "15example");
-                showPizzaDetails(pizzaName, "15example");
+//                String imageURL = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png";
+                String imageURL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToTsn6g4wVCs1KgTpt9TwuHpZnqtfBrzJ8zA&usqp=CAU";
+                showPizzaDetails(pizza.getName(), "15example", imageURL);
+
             }
         });
         linearLayout.addView(textView);
     }
 }
 
-//    private void showPizzaDetails(String name, String price) {
-//        findViewById(R.id.mainTextView).setVisibility(View.GONE);
-//        findViewById(R.id.button).setVisibility(View.GONE);
-//        findViewById(R.id.layout).setVisibility(View.GONE);
-//
-//
-//        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price);
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
 
 
-    private void showPizzaDetails(String name, String price) {
+
+
+    private void showPizzaDetails(String name, String price, String url) {
         // Hide other views
         findViewById(R.id.mainTextView).setVisibility(View.GONE);
         findViewById(R.id.button).setVisibility(View.GONE);
         findViewById(R.id.layout).setVisibility(View.GONE);
 
-        // Get the FragmentManager
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
-        // Begin a FragmentTransaction
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        // Create a new instance of the fragment with the provided name and price
-        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price);
-
-        // Replace the existing fragment with the new instance
+        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price, url);
         transaction.replace(R.id.fragment_container, fragment, "PizzaDetailsFragment");
-
-        // Add the transaction to the back stack
         transaction.addToBackStack(null);
 
-        // Commit the transaction
         transaction.commit();
     }
+
+
+
 
 
     @Override
@@ -192,16 +185,17 @@ public void fillPizzas(List<Pizza> pizzas) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag("PizzaDetailsFragment");
         if (fragment != null && ((Fragment) fragment).isVisible()) {
-            // If the PizzaDetailsFragment is visible, detach it
+
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.detach(fragment);
             transaction.commit();
-            // Make the list views visible again
+
+
             findViewById(R.id.mainTextView).setVisibility(View.VISIBLE);
             findViewById(R.id.button).setVisibility(View.VISIBLE);
             findViewById(R.id.layout).setVisibility(View.VISIBLE);
+            super.onBackPressed();
         } else {
-            // If no fragment is visible or it's not the PizzaDetailsFragment, perform default back press behavior
             super.onBackPressed();
         }
     }
