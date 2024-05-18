@@ -75,11 +75,37 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
             startActivity(new Intent(this, CustPizzaMenu.class));
             overridePendingTransition(0, 0);
             return true;
-        }
+
+    } else if (id == R.id.c_profile) {
+        showToast("Profile clicked");
+        startActivity(new Intent(this, ProfileActivity.class));
+        overridePendingTransition(0, 0);
+        return true;
+    } else if (id == R.id.c_contact) {
+        showToast("Contact Us clicked");
+        startActivity(new Intent(this, ContactUsActivity.class));
+        overridePendingTransition(0, 0);
+        return true;
+    } else if (id == R.id.c_logout) {
+        logout();
+        return true;
+    }
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
-    }
+}
 
+    private void logout() {
+        // Clear any user session data or perform logout actions here
+        // For example, if using SharedPreferences for session management, clear it:
+        // SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
+        // editor.clear().apply();
+
+        // Navigate to the login activity
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish(); // Finish the current activity to prevent returning to it when pressing back
+    }
 
     @Override
     public void onBackPressed() {
@@ -94,4 +120,3 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
-

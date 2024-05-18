@@ -6,6 +6,10 @@ public class Pizza {
     private Double price;
     private String imageUrl;
 
+    private int quantity;
+    private String category;
+
+
     public Pizza( ) {
 
     }
@@ -28,11 +32,11 @@ public class Pizza {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -44,7 +48,16 @@ public class Pizza {
         this.quantity = quantity;
     }
 
-    private int quantity;
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
+
 
     public Pizza(int id, String name, Double price, int quantity) {
         ID = id;

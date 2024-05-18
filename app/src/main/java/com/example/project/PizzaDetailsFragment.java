@@ -23,19 +23,18 @@ public class PizzaDetailsFragment extends Fragment {
     private static final String ARG_PIZZA_URL = "pizza_image";
 
     private String pizzaName;
-    private String pizzaPrice;
+    private double pizzaPrice;
     private String pizzaURL;
-
 
     public PizzaDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static PizzaDetailsFragment newInstance(String pizzaName, String pizzaPrice, String pizzaURL ) {
+    public static PizzaDetailsFragment newInstance(String pizzaName, double pizzaPrice, String pizzaURL ) {
         PizzaDetailsFragment fragment = new PizzaDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PIZZA_NAME, pizzaName);
-        args.putString(ARG_PIZZA_PRICE, pizzaPrice);
+        args.putDouble(ARG_PIZZA_PRICE, pizzaPrice);
         args.putString(ARG_PIZZA_URL, pizzaURL);
         fragment.setArguments(args);
         return fragment;
@@ -46,7 +45,7 @@ public class PizzaDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             pizzaName = getArguments().getString(ARG_PIZZA_NAME);
-            pizzaPrice = getArguments().getString(ARG_PIZZA_PRICE);
+            pizzaPrice = getArguments().getDouble(ARG_PIZZA_PRICE);
             pizzaURL = getArguments().getString(ARG_PIZZA_URL);
         }
     }
@@ -59,22 +58,17 @@ public class PizzaDetailsFragment extends Fragment {
 
         TextView pizzaNameTextView = view.findViewById(R.id.pizzaNameTextView);
         TextView pizzaPriceTextView = view.findViewById(R.id.pizzaPriceTextView);
-        ImageView imageView=  view.findViewById(R.id.Pizzaimage);
+        ImageView imageView = view.findViewById(R.id.Pizzaimage);
 
         // Set the pizza name and price to the TextViews
         pizzaNameTextView.setText(pizzaName);
-        pizzaPriceTextView.setText(pizzaPrice);
-        ConnectionAsyncTask t= new ConnectionAsyncTask();
-//        String imageURL = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png";
-        String imageURL =pizzaURL;
+        pizzaPriceTextView.setText(String.valueOf(pizzaPrice));
 
-        t.loadImageFromUrl(imageURL,imageView);
+        // Load the pizza image from URL
+        ConnectionAsyncTask t = new ConnectionAsyncTask();
+        String imageURL = pizzaURL;
+        t.loadImageFromUrl(imageURL, imageView);
 
         return view;
     }
-
-
-
-
-
 }

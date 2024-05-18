@@ -3,12 +3,16 @@ package com.example.project;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustPizzaMenu extends AppCompatActivity {
@@ -28,7 +33,38 @@ public class CustPizzaMenu extends AppCompatActivity {
     LinearLayout linearLayout2;
     ImageView imageView;
 
+    private Button  filterButton;
 
+    private Spinner categorySpinner;
+    private EditText priceEditText;
+    public List<Pizza> all_pizzas;
+
+
+
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_cust_pizza_menu);
+//
+//        button = findViewById(R.id.button);
+//        linearLayout = findViewById(R.id.layout);
+////        imageView = findViewById(R.id.imageView); // Add this line
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("http://www.mocky.io/v2/5b4e6b4e3200002c009c2a44");
+////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/7f002b85-a983-4107-846b-f5635717e164");
+////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://18fbea62d74a40eab49f72e12163fe6c.api.mockbin.io/");
+//                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
+//
+//            }
+//        });
+//
+//
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,65 +72,39 @@ public class CustPizzaMenu extends AppCompatActivity {
         setContentView(R.layout.activity_cust_pizza_menu);
 
         button = findViewById(R.id.button);
+        filterButton = findViewById(R.id.filterButton);
         linearLayout = findViewById(R.id.layout);
-//        imageView = findViewById(R.id.imageView); // Add this line
+        categorySpinner = findViewById(R.id.categorySpinner);
+        priceEditText = findViewById(R.id.priceEditText);
+        new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new ConnectionAsyncTask(CustPizzaMenu.this).execute("http://www.mocky.io/v2/5b4e6b4e3200002c009c2a44");
-//                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/7f002b85-a983-4107-846b-f5635717e164");
-                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://18fbea62d74a40eab49f72e12163fe6c.api.mockbin.io/");
+                categorySpinner.setSelection(0);
+                priceEditText.setText("");
+                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
 
             }
         });
 
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                    Toast.makeText(CustPizzaMenu.this,"found", Toast.LENGTH_LONG).show();
+                    applyFilters(all_pizzas);
 
 
+            }
+        });
     }
+
+
 
     public void setButtonText(String text) {
         button.setText(text);
     }
-
-//    public void fillPizzas(List<Pizza> pizzas) {
-//        linearLayout.removeAllViews();
-//        for (int i = 0; i < pizzas.size(); i++) {
-//            TextView textView = new TextView(this);
-//            textView.setText(pizzas.get(i).getName());
-//
-//
-//
-//
-//            linearLayout.addView(textView);
-//
-//
-//        }
-//    }
-
-//    public void fillPizzas(List<Pizza> pizzas) {
-//        linearLayout.removeAllViews();
-//        for (int i = 0; i < pizzas.size(); i++) {
-//            // Create a horizontal LinearLayout to hold name and index
-//            LinearLayout horizontalLayout = new LinearLayout(this);
-//            horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-//
-//            // Create a TextView for pizza name
-//            TextView nameTextView = new TextView(this);
-//            nameTextView.setText(pizzas.get(i).getName());
-//
-//            // Create a TextView for pizza index (assuming you want to display the index)
-//            TextView indexTextView = new TextView(this);
-//            indexTextView.setText("\t\t"+ String.valueOf(i));
-//
-//            // Add the TextViews to the horizontal layout
-//            horizontalLayout.addView(nameTextView);
-//            horizontalLayout.addView(indexTextView);
-//
-//            // Add the horizontal layout to the main LinearLayout
-//            linearLayout.addView(horizontalLayout);
-//        }
-//    }
 
 
 /////////////////////////////////////////////////////////
@@ -135,8 +145,9 @@ public class CustPizzaMenu extends AppCompatActivity {
 
 
 ////////////////////////////////////////// Fragments
-public void fillPizzas(List<Pizza> pizzas) {
+public void fillPizzas(List<Pizza> pizzas ) {
     linearLayout.removeAllViews();
+    all_pizzas=pizzas;
     for (final Pizza pizza : pizzas) {
         TextView textView = new TextView(this);
 
@@ -144,26 +155,28 @@ public void fillPizzas(List<Pizza> pizzas) {
          textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showPizzaDetails(pizza.getName(), pizza.getPrice().toString());
-//                String imageURL = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png";
-                String imageURL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToTsn6g4wVCs1KgTpt9TwuHpZnqtfBrzJ8zA&usqp=CAU";
-                showPizzaDetails(pizza.getName(), "15example", imageURL);
+
+                showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl());
 
             }
         });
         linearLayout.addView(textView);
     }
+
 }
 
 
 
 
 
-    private void showPizzaDetails(String name, String price, String url) {
+    private void showPizzaDetails(String name, double price, String url) {
         // Hide other views
         findViewById(R.id.mainTextView).setVisibility(View.GONE);
         findViewById(R.id.button).setVisibility(View.GONE);
         findViewById(R.id.layout).setVisibility(View.GONE);
+        findViewById(R.id.filterButton).setVisibility(View.GONE);
+        findViewById(R.id.priceEditText).setVisibility(View.GONE);
+        findViewById(R.id.categorySpinner).setVisibility(View.GONE);
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -194,10 +207,79 @@ public void fillPizzas(List<Pizza> pizzas) {
             findViewById(R.id.mainTextView).setVisibility(View.VISIBLE);
             findViewById(R.id.button).setVisibility(View.VISIBLE);
             findViewById(R.id.layout).setVisibility(View.VISIBLE);
+            findViewById(R.id.filterButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.priceEditText).setVisibility(View.VISIBLE);
+            findViewById(R.id.categorySpinner).setVisibility(View.VISIBLE);
+
             super.onBackPressed();
         } else {
             super.onBackPressed();
         }
+    }
+
+
+    public void applyFilters(List<Pizza> pizzas) {
+        String selectedCategory = "ALL";
+        String maxPriceString = "1000";
+        double maxPrice = 1000;
+        // Ensure pizzas is not null
+        if (pizzas == null) {
+            Toast.makeText(this, "No pizzas available to filter", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+//        String selectedCategory = categorySpinner.getSelectedItem().toString();
+//        String maxPriceString = priceEditText.getText().toString();
+//        double maxPrice = Double.MAX_VALUE;
+
+         selectedCategory = categorySpinner.getSelectedItem().toString();
+         maxPriceString = priceEditText.getText().toString();
+         maxPrice = Double.MAX_VALUE;
+
+        // Attempt to parse the max price input, if any
+        if (!maxPriceString.isEmpty()) {
+            try {
+                maxPrice = Double.parseDouble(maxPriceString);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid price input", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+
+        Log.d("CustPizzaMenu", "Selected category: " + selectedCategory);
+        Log.d("CustPizzaMenu", "Max price: " + maxPrice);
+
+        List<Pizza> filteredPizzas = new ArrayList<>();
+        for (Pizza pizza : pizzas) {
+            String pizzaCategory = pizza.getCategory();
+            double pizzaPrice = pizza.getPrice();
+
+            // Ensure pizzaCategory is not null
+            if (pizzaCategory == null) {
+                Log.w("CustPizzaMenu", "Skipping pizza with null category: " + pizza.getName());
+                continue;
+            }
+
+            Log.d("CustPizzaMenu", "Checking pizza: " + pizza.getName());
+
+            boolean matchesCategory = "All".equals(selectedCategory) || pizzaCategory.equals(selectedCategory);
+            boolean matchesPrice = pizzaPrice >= maxPrice;
+
+            Log.d("CustPizzaMenu", "Matches category: " + matchesCategory);
+            Log.d("CustPizzaMenu", "Matches price: " + matchesPrice);
+
+            // Add pizza if it matches either category or price or both
+            if (matchesCategory || matchesPrice) {
+                filteredPizzas.add(pizza);
+            }
+        }
+
+        Log.d("CustPizzaMenu", "Filtered pizzas count: " + filteredPizzas.size());
+
+
+        fillPizzas(filteredPizzas);
+
     }
 
 

@@ -1,16 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/pizzaNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="Pizza Name"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginEnd="8dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/pizzaPriceTextView"
@@ -18,13 +18,13 @@
         android:layout_height="wrap_content"
         android:text="Pizza Price"
         android:textSize="18sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/Pizzaimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250sp"
+        android:layout_height="350sp"
         android:layout_gravity="center"
-          />
+        android:layout_weight="0.3" />
 
 </LinearLayout>

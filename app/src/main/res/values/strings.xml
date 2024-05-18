@@ -9,5 +9,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="category_array">
+        <item>All</item>
+        <item>chicken</item>
+        <item>beef</item>
+        <item>veggies</item>
+        <item>others</item>
+    </string-array>
+
 
 </resources>

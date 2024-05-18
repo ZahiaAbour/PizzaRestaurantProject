@@ -24,7 +24,7 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
     }
     @Override
     protected void onPreExecute() {
-        ((CustPizzaMenu) activity).setButtonText("connecting");
+//        ((CustPizzaMenu) activity).setButtonText("connecting");
         super.onPreExecute();
         ((CustPizzaMenu) activity).setProgress(true);
     }
@@ -37,10 +37,12 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         ((CustPizzaMenu) activity).setProgress(false);
-        ((CustPizzaMenu) activity).setButtonText("connected");
+//        ((CustPizzaMenu) activity).setButtonText("connected");
         List<Pizza> Pizzas =
                PizzaParser.getObjectFromJson(s);
         ((CustPizzaMenu) activity).fillPizzas(Pizzas);
+
+
     }
 
 

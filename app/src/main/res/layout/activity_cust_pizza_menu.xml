@@ -7,76 +7,78 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/mainTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pizza Menu"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Data"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainTextView" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mainTextView"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:text="Pizza Menu" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="227dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reset filter" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/gallery_thumb"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/category_array"/>
+
+            <EditText
+                android:id="@+id/priceEditText"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="enter price"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/filterButton"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="apply" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
-
-
+            android:id="@+id/layout" />
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.62" />
-
-
-<!--        <FrameLayout-->
-<!--            android:id="@+id/fragment_container"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/layout"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent"  />
 
 
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>
