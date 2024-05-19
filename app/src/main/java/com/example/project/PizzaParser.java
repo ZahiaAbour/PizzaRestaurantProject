@@ -20,6 +20,7 @@ public class PizzaParser {
 
                 jsonObject = (JSONObject) typesArray.get(i);
                 Pizza pizza = new Pizza();
+                pizza.setID(jsonObject.getInt("id"));
                 pizza.setName(jsonObject.getString("name"));
                 pizza.setPrice(jsonObject.getDouble("price"));
                 pizza.setImageUrl(jsonObject.getString("image_url"));

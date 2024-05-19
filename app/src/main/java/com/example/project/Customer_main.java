@@ -76,7 +76,15 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
             overridePendingTransition(0, 0);
             return true;
 
-    } else if (id == R.id.c_profile) {
+    } else if (id == R.id.c_fav) {
+            showToast("Item 3 clicked");
+            startActivity(new Intent(this, CustFavs.class));
+            overridePendingTransition(0, 0);
+            return true;
+
+        }
+
+        else if (id == R.id.c_profile) {
         showToast("Profile clicked");
         startActivity(new Intent(this, ProfileActivity.class));
         overridePendingTransition(0, 0);

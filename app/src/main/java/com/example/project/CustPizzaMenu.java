@@ -156,7 +156,7 @@ public void fillPizzas(List<Pizza> pizzas ) {
             @Override
             public void onClick(View v) {
 
-                showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl());
+                showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl(), pizza.getCategory(), pizza.getID());
 
             }
         });
@@ -169,7 +169,7 @@ public void fillPizzas(List<Pizza> pizzas ) {
 
 
 
-    private void showPizzaDetails(String name, double price, String url) {
+    private void showPizzaDetails(String name, double price, String url, String category, int id) {
         // Hide other views
         findViewById(R.id.mainTextView).setVisibility(View.GONE);
         findViewById(R.id.button).setVisibility(View.GONE);
@@ -182,7 +182,7 @@ public void fillPizzas(List<Pizza> pizzas ) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price, url);
+        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price, url, category, id );
         transaction.replace(R.id.fragment_container, fragment, "PizzaDetailsFragment");
         transaction.addToBackStack(null);
 

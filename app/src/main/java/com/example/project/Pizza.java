@@ -16,6 +16,16 @@ public class Pizza {
     public Pizza(String name) {
         this.name = name;
     }
+
+
+    public Pizza(int pizzaID, String pizzaName, double pizzaPrice, String pizzaURL, String pizzaCategory) {
+    this.name=pizzaName;
+    this.price=pizzaPrice;
+    this.imageUrl=pizzaURL;
+    this.category=pizzaCategory;
+    this.ID= pizzaID;
+    }
+
     public int getID() {
         return ID;
     }

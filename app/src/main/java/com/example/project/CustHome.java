@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -58,7 +60,17 @@ public class CustHome extends AppCompatActivity {
             }
         });
 
-
+//        ImageButton addToFavoritesButton = findViewById(R.id.addToFavoritesButton);
+//        addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
+//            boolean isFavorite = false;
+//
+//            @Override
+//            public void onClick(View v) {
+//                isFavorite = !isFavorite;
+//                addToFavoritesButton.setImageResource(isFavorite ? R.drawable.ic_heart_filled : R.drawable.ic_heart_outline);
+//
+//            }
+//        });
 
 
 
