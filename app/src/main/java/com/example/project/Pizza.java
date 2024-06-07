@@ -50,6 +50,7 @@ public class Pizza {
         this.price = price;
     }
 
+
     public int getQuantity() {
         return quantity;
     }

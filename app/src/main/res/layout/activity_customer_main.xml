@@ -12,18 +12,35 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/centerTextView"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is the main customer swipe to see the navigation bar"
-            android:textAlignment="center"
-            android:textSize="18sp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="About Us  "
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="287dp"
+            android:layout_height="345dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Our restaurant is a family business established in 1985, it is a beloved pizzeria Ramallah.
+            \nWe present several types of pizzas, difenitely check our menu and you will not regret it!
+            \nOur customers are of highest importance, and their satisfaction is our goal. We offer different pizzas, with special recipes from our talented chefs. Marghertias, Vegetarian, Chicken and Beef pizzas, and more!
+            \nDifenitely check our menu and you will not regret it!
+            \n\nLooking forward to serve you our love in the form of pizza ! "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.432"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.635" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

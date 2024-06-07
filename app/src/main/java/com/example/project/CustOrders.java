@@ -15,38 +15,38 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CustFavs extends AppCompatActivity {
+public class CustOrders extends AppCompatActivity {
 
     private LinearLayout favoritesLayout;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cust_favs);
+        setContentView(R.layout.activity_cust_orders);
+        favoritesLayout = findViewById(R.id.OrdersLayout);
 
-        favoritesLayout = findViewById(R.id.favoritesLayout);
-
-        loadFavorites();
+        loadOrders();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadFavorites();
+        loadOrders();
     }
 
-    @SuppressLint("Range")
-    private void loadFavorites() {
+    @SuppressLint({"Range", "SetTextI18n"})
+    private void loadOrders() {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this, "DB", null, 1);
-        Cursor allPizzasCursor = dataBaseHelper.getAllFavs();
+        Cursor allOrdersCursor = dataBaseHelper.getAllOrders();
         favoritesLayout.removeAllViews();
-        if (allPizzasCursor == null || allPizzasCursor.getCount() == 0) {
-            Toast.makeText(this, "No favorites found", Toast.LENGTH_LONG).show();
+        if (allOrdersCursor == null || allOrdersCursor.getCount() == 0) {
+            Toast.makeText(this, "No orders found", Toast.LENGTH_LONG).show();
             return;
         }
 
-        while (allPizzasCursor.moveToNext()) {
+        while (allOrdersCursor.moveToNext()) {
             // Create a horizontal LinearLayout for each pizza
             LinearLayout pizzaLayout = new LinearLayout(this);
             pizzaLayout.setLayoutParams(new LinearLayout.LayoutParams(
@@ -55,10 +55,9 @@ public class CustFavs extends AppCompatActivity {
             ));
             pizzaLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            // Create an ImageView for the pizza image
+
             ImageView imageView = new ImageView(this);
-            // Set the image URL from the cursor
-            String imageUrl = allPizzasCursor.getString(allPizzasCursor.getColumnIndex("IMAGE_URL"));
+            String imageUrl = allOrdersCursor.getString(allOrdersCursor.getColumnIndex("IMAGE_URL"));
             ConnectionAsyncTask t = new ConnectionAsyncTask();
             t.loadImageFromUrl(imageUrl, imageView);
 
@@ -82,54 +81,44 @@ public class CustFavs extends AppCompatActivity {
 
             // Create a TextView for the pizza name
             TextView nameTextView = new TextView(this);
-            nameTextView.setText("\t\t " + allPizzasCursor.getString(allPizzasCursor.getColumnIndex("NAME")));
+            nameTextView.setText("\t\t " + allOrdersCursor.getString(allOrdersCursor.getColumnIndex("NAME")));
             nameTextView.setTextSize(25); // Set text size in sp
             nameTextView.setTypeface(null, Typeface.BOLD); // Make text bold
 
             // Create a TextView for the pizza price
             TextView priceTextView = new TextView(this);
-            priceTextView.setText("\t\t $" + allPizzasCursor.getDouble(allPizzasCursor.getColumnIndex("PRICE")));
+            priceTextView.setText("\t\t Total Price: $" + allOrdersCursor.getDouble(allOrdersCursor.getColumnIndex("PRICE")));
             priceTextView.setTextSize(20); // Set text size in sp
+
+            TextView quantityTextView = new TextView(this);
+            quantityTextView.setText("\t\t Quantity: " + allOrdersCursor.getString(allOrdersCursor.getColumnIndex("QUANTITY")));
+            quantityTextView.setTextSize(20); // Set text size in sp
+
+            TextView sizeTextView = new TextView(this);
+            sizeTextView.setText("\t\t In size: " + allOrdersCursor.getString(allOrdersCursor.getColumnIndex("SIZE")));
+            sizeTextView.setTextSize(20); // Set text size in sp
+
 
             // Add the TextViews to the textLayout
             textLayout.addView(nameTextView);
             textLayout.addView(priceTextView);
+            textLayout.addView(quantityTextView);
+            textLayout.addView(sizeTextView);
 
             // Add the textLayout to the pizzaLayout
             pizzaLayout.addView(textLayout);
 
-            // Create an ImageButton for the heart icon
-            ImageButton heartButton = new ImageButton(this);
-            heartButton.setImageResource(R.drawable.ic_heart_filled); // Default to filled heart
-            heartButton.setBackgroundColor(Color.TRANSPARENT); // Remove background
 
-            // Set the layout parameters for the heart button
-            LinearLayout.LayoutParams heartParams = new LinearLayout.LayoutParams(
-                    dpToPx(40),
-                    dpToPx(40)
-            );
-            heartButton.setLayoutParams(heartParams);
 
-            // Get the pizza ID for the current row
-            int pizzaId = allPizzasCursor.getInt(allPizzasCursor.getColumnIndex("ID"));
 
-            // Set onClickListener for the heart button
-            heartButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Remove the pizza from favorites
-                    dataBaseHelper.delete_Pizza_from_favs(pizzaId);
-                    loadFavorites(); // Refresh the favorites list
-                }
-            });
 
-            // Add the heart button to the pizzaLayout
-            pizzaLayout.addView(heartButton);
+
+
 
             // Add the pizzaLayout to the favoritesLayout
             favoritesLayout.addView(pizzaLayout);
         }
-        allPizzasCursor.close();
+        allOrdersCursor.close();
     }
 
     // Convert dp to pixels

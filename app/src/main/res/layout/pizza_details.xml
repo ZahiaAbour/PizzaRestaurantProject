@@ -9,17 +9,79 @@
         android:id="@+id/pizzaNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pizza Name"
+        android:layout_marginBottom="8dp"
+        android:text="Make your order"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/pizzaPriceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pizza Price"
-        android:textSize="16sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/pizzaPriceTextView"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:text="Size"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/sizeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/pizza_sizes"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!--        <EditText-->
+<!--            android:id="@+id/quantityEditText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="text"-->
+<!--            android:hint="quantity" />-->
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:text="Quantity"
+            android:layout_marginTop="20dp"/>
+
+        <NumberPicker
+            android:id="@+id/picker1"
+            android:layout_width="29dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="Price:" />
+
+        <TextView
+            android:id="@+id/priceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+              />
+    </LinearLayout>
 
     <!-- Add more TextViews for additional pizza details if needed -->
 

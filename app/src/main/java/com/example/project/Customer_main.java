@@ -65,7 +65,9 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
         int id = menuItem.getItemId();
         if (id == R.id.c_home) {
             showToast("Item 1 clicked");
-            startActivity(new Intent(this, CustHome.class));
+//            startActivity(new Intent(this, CustHome.class));
+            startActivity(new Intent(this, Customer_main.class));
+
             overridePendingTransition(0, 0);
             return true;
 
@@ -96,6 +98,17 @@ public class Customer_main extends AppCompatActivity implements NavigationView.O
         return true;
     } else if (id == R.id.c_logout) {
         logout();
+        return true;
+    }
+    else if (id == R.id.c_offers) {
+        showToast("Special Offers clicked");
+        startActivity(new Intent(this, CustSpecialOffers.class));
+        overridePendingTransition(0, 0);
+        return true;
+    } else if (id == R.id.c_orders) {
+        showToast("My orders clicked");
+        startActivity(new Intent(this, CustOrders.class));
+        overridePendingTransition(0, 0);
         return true;
     }
         drawerLayout.closeDrawer(GravityCompat.START);

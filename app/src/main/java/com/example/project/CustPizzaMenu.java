@@ -37,34 +37,9 @@ public class CustPizzaMenu extends AppCompatActivity {
 
     private Spinner categorySpinner;
     private EditText priceEditText;
-    public List<Pizza> all_pizzas;
+    public static List<Pizza> all_pizzas;
 
 
-
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_cust_pizza_menu);
-//
-//        button = findViewById(R.id.button);
-//        linearLayout = findViewById(R.id.layout);
-////        imageView = findViewById(R.id.imageView); // Add this line
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("http://www.mocky.io/v2/5b4e6b4e3200002c009c2a44");
-////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/7f002b85-a983-4107-846b-f5635717e164");
-////                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://18fbea62d74a40eab49f72e12163fe6c.api.mockbin.io/");
-//                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
-//
-//            }
-//        });
-//
-//
-//
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +51,9 @@ public class CustPizzaMenu extends AppCompatActivity {
         linearLayout = findViewById(R.id.layout);
         categorySpinner = findViewById(R.id.categorySpinner);
         priceEditText = findViewById(R.id.priceEditText);
-        new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
+//        new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
 
+        fillPizzas(all_pizzas);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +67,7 @@ public class CustPizzaMenu extends AppCompatActivity {
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                    Toast.makeText(CustPizzaMenu.this,"found", Toast.LENGTH_LONG).show();
                     applyFilters(all_pizzas);
-
-
             }
         });
     }
@@ -107,45 +79,8 @@ public class CustPizzaMenu extends AppCompatActivity {
     }
 
 
-/////////////////////////////////////////////////////////
-    //////////////////////////////////   shows as Alert when clicked (pop ip)
-//    private void showPizzaDetails(String name, String price) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        View dialogView = getLayoutInflater().inflate(R.layout.pizza_details, null);
-//        builder.setView(dialogView);
-//
-//        TextView pizzaNameTextView = dialogView.findViewById(R.id.pizzaNameTextView);
-//        TextView pizzaPriceTextView = dialogView.findViewById(R.id.pizzaPriceTextView);
-//
-//        pizzaNameTextView.setText(name);
-//        pizzaPriceTextView.setText(price);
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
-//
-//    public void fillPizzas(List<Pizza> pizzas) {
-//        linearLayout.removeAllViews();
-//        for (int i = 0; i < pizzas.size(); i++) {
-//            final String pizzaName = pizzas.get(i).getName();
-//            final String pizzaPrice = String.valueOf(i);
-//
-//            TextView textView = new TextView(this);
-//            textView.setText(pizzaName);
-//            textView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    showPizzaDetails(pizzaName, pizzaPrice);
-//                }
-//            });
-//
-//            linearLayout.addView(textView);
-//        }
-//    }
-
-
 ////////////////////////////////////////// Fragments
-public void fillPizzas(List<Pizza> pizzas ) {
+public  void fillPizzas(List<Pizza> pizzas) {
     linearLayout.removeAllViews();
     all_pizzas=pizzas;
     for (final Pizza pizza : pizzas) {
@@ -298,14 +233,14 @@ public void fillPizzas(List<Pizza> pizzas ) {
 
 
 
-    public void setProgress(boolean progress) {
-        ProgressBar progressBar = (ProgressBar)
-                findViewById(R.id.progressBar);
-        if (progress) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
+//    public void setProgress(boolean progress) {
+//        ProgressBar progressBar = (ProgressBar)
+//                findViewById(R.id.progressBar);
+//        if (progress) {
+//            progressBar.setVisibility(View.VISIBLE);
+//        } else {
+//            progressBar.setVisibility(View.GONE);
+//        }
+//    }
 
 }

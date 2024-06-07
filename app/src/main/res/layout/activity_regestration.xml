@@ -8,30 +8,51 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/get_started_text"
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
+        android:gravity="center"
+        android:paddingTop="35dp"
+        android:text="Pizza Restaurant"
+        android:textColor="#2196F3"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteY="731dp" />
+
+    <Button
+        android:id="@+id/signinMainButton"
+        android:layout_width="175dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#03A9F4"
+        android:gravity="center"
+        android:text="Log in"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/createAccountMainText"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="GET STARTED"
+        android:text="New here?"
         android:textAlignment="center"
         android:textColor="#83C0F1"
         android:textSize="22sp"
         android:textStyle="bold|italic" />
 
     <Button
-        android:id="@+id/connectButton"
+        android:id="@+id/signupMainText"
         android:layout_width="175dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:backgroundTint="#03A9F4"
         android:gravity="center"
-        android:text="Start"
+        android:text="Sign up"
         android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold|italic" />
 
 
 </LinearLayout>
-
-
-
