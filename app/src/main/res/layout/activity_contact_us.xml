@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2E2525"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -9,20 +11,25 @@
         android:id="@+id/btnCallUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="#d63e12"
         android:text="Call Us" />
 
     <Button
         android:id="@+id/btnFindUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#d63e12"
         android:text="Find Us on Map"
-        android:layout_marginTop="16dp" />
+        tools:backgroundTint="#d63e12" />
 
     <Button
         android:id="@+id/btnEmailUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email Us"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#d63e12"
+        android:text="Email Us" />
 
 </LinearLayout>

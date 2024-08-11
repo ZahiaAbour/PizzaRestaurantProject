@@ -7,43 +7,63 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/wood3"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="About Us  "
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.322" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="287dp"
-            android:layout_height="345dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="Our restaurant is a family business established in 1985, it is a beloved pizzeria Ramallah.
-            \nWe present several types of pizzas, difenitely check our menu and you will not regret it!
-            \nOur customers are of highest importance, and their satisfaction is our goal. We offer different pizzas, with special recipes from our talented chefs. Marghertias, Vegetarian, Chicken and Beef pizzas, and more!
-            \nDifenitely check our menu and you will not regret it!
-            \n\nLooking forward to serve you our love in the form of pizza ! "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.635" />
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="258dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/rest"
+                tools:layout_editor_absoluteX="0dp" />
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="287dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="36dp"
+                android:background="#7A625A"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Our restaurant is a family business established in 1985, it is a beloved pizzeria Ramallah.
+                \nWe present several types of pizzas, definitely check our menu and you will not regret it!
+                \nOur customers are of highest importance, and their satisfaction is our goal. We offer different pizzas, with special recipes from our talented chefs. Margheritas, Vegetarian, Chicken and Beef pizzas, and more!
+                \nDefinitely check our menu and you will not regret it!
+                \n\nLooking forward to serve you our love in the form of pizza ! "
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#d63e12"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="About Us  "
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="@id/imageView1"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintStart_toStartOf="@id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView1"
+                app:layout_constraintVertical_bias="0.611" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -54,33 +74,3 @@
         app:menu="@menu/customer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/drawer_layout"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".MainActivity">-->
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        &lt;!&ndash; Your main content goes here &ndash;&gt;-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/nav_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        app:headerLayout="@layout/cust_nav_header"-->
-<!--        app:menu="@menu/customer_menu" />-->
-
-
-
-<!--</androidx.drawerlayout.widget.DrawerLayout>-->

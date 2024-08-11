@@ -33,12 +33,11 @@ public class CustPizzaMenu extends AppCompatActivity {
     LinearLayout linearLayout2;
     ImageView imageView;
 
-    private Button  filterButton;
+    private Button filterButton;
 
     private Spinner categorySpinner;
     private EditText priceEditText;
     public static List<Pizza> all_pizzas;
-
 
 
     @Override
@@ -46,12 +45,11 @@ public class CustPizzaMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_pizza_menu);
 
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.resetButton);
         filterButton = findViewById(R.id.filterButton);
         linearLayout = findViewById(R.id.layout);
         categorySpinner = findViewById(R.id.categorySpinner);
         priceEditText = findViewById(R.id.priceEditText);
-//        new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
 
         fillPizzas(all_pizzas);
         button.setOnClickListener(new View.OnClickListener() {
@@ -59,19 +57,18 @@ public class CustPizzaMenu extends AppCompatActivity {
             public void onClick(View v) {
                 categorySpinner.setSelection(0);
                 priceEditText.setText("");
-                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
-
+//                new ConnectionAsyncTask(CustPizzaMenu.this).execute("https://mocki.io/v1/5d7971b4-6031-4e52-b421-159182328271");
+                fillPizzas(all_pizzas);
             }
         });
 
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    applyFilters(all_pizzas);
+                applyFilters(all_pizzas);
             }
         });
     }
-
 
 
     public void setButtonText(String text) {
@@ -79,35 +76,71 @@ public class CustPizzaMenu extends AppCompatActivity {
     }
 
 
-////////////////////////////////////////// Fragments
-public  void fillPizzas(List<Pizza> pizzas) {
-    linearLayout.removeAllViews();
-    all_pizzas=pizzas;
-    for (final Pizza pizza : pizzas) {
-        TextView textView = new TextView(this);
+    ////////////////////////////////////////// Fragments
+//    public void fillPizzas(List<Pizza> pizzas) {
+//        linearLayout.removeAllViews();
+//        all_pizzas = pizzas;
+//        for (final Pizza pizza : pizzas) {
+//            TextView textView = new TextView(this);
+//
+//            textView.setText(pizza.getName());
+//            textView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl(), pizza.getCategory(), pizza.getID());
+//
+//                }
+//            });
+//            linearLayout.addView(textView);
+//        }
+//
+//    }
 
-        textView.setText(pizza.getName());
-         textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void fillPizzas(List<Pizza> pizzas) {
+        linearLayout.removeAllViews();
+//        all_pizzas = pizzas;
 
-                showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl(), pizza.getCategory(), pizza.getID());
+        for (final Pizza pizza : pizzas) {
+            // Inflate the custom layout
+            View pizzaView = getLayoutInflater().inflate(R.layout.pizza_menu_view, linearLayout, false);
 
-            }
-        });
-        linearLayout.addView(textView);
+            // Get references to the views in the custom layout
+            ImageView imageView = pizzaView.findViewById(R.id.pizza_image);
+            TextView pizzaNameTextView = pizzaView.findViewById(R.id.pizza_name);
+            TextView pizzaPriceTextView = pizzaView.findViewById(R.id.pizza_price);
+
+            // Set the data
+            pizzaNameTextView.setText(pizza.getName());
+            pizzaPriceTextView.setText("$" + pizza.getPrice());
+
+
+            ConnectionAsyncTask t = new ConnectionAsyncTask();
+            t.loadImageFromUrl(pizza.getImageUrl(), imageView);
+
+            // Set an OnClickListener to show pizza details
+            pizzaView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPizzaDetails(pizza.getName(), pizza.getPrice(), pizza.getImageUrl(), pizza.getCategory(), pizza.getID());
+                }
+            });
+
+            // Add the custom view to the linear layout
+            linearLayout.addView(pizzaView);
+        }
     }
-
-}
-
-
 
 
 
     private void showPizzaDetails(String name, double price, String url, String category, int id) {
         // Hide other views
         findViewById(R.id.mainTextView).setVisibility(View.GONE);
-        findViewById(R.id.button).setVisibility(View.GONE);
+        findViewById(R.id.textView13).setVisibility(View.GONE);
+        findViewById(R.id.textView14).setVisibility(View.GONE);
+        findViewById(R.id.textView15).setVisibility(View.GONE);
+
+        findViewById(R.id.resetButton).setVisibility(View.GONE);
         findViewById(R.id.layout).setVisibility(View.GONE);
         findViewById(R.id.filterButton).setVisibility(View.GONE);
         findViewById(R.id.priceEditText).setVisibility(View.GONE);
@@ -117,15 +150,12 @@ public  void fillPizzas(List<Pizza> pizzas) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price, url, category, id );
+        PizzaDetailsFragment fragment = PizzaDetailsFragment.newInstance(name, price, url, category, id);
         transaction.replace(R.id.fragment_container, fragment, "PizzaDetailsFragment");
         transaction.addToBackStack(null);
 
         transaction.commit();
     }
-
-
-
 
 
     @Override
@@ -140,7 +170,10 @@ public  void fillPizzas(List<Pizza> pizzas) {
 
 
             findViewById(R.id.mainTextView).setVisibility(View.VISIBLE);
-            findViewById(R.id.button).setVisibility(View.VISIBLE);
+            findViewById(R.id.textView13).setVisibility(View.VISIBLE);
+            findViewById(R.id.textView14).setVisibility(View.VISIBLE);
+            findViewById(R.id.textView15).setVisibility(View.VISIBLE);
+            findViewById(R.id.resetButton).setVisibility(View.VISIBLE);
             findViewById(R.id.layout).setVisibility(View.VISIBLE);
             findViewById(R.id.filterButton).setVisibility(View.VISIBLE);
             findViewById(R.id.priceEditText).setVisibility(View.VISIBLE);
@@ -154,22 +187,14 @@ public  void fillPizzas(List<Pizza> pizzas) {
 
 
     public void applyFilters(List<Pizza> pizzas) {
-        String selectedCategory = "ALL";
-        String maxPriceString = "1000";
-        double maxPrice = 1000;
-        // Ensure pizzas is not null
         if (pizzas == null) {
             Toast.makeText(this, "No pizzas available to filter", Toast.LENGTH_SHORT).show();
             return;
         }
 
-//        String selectedCategory = categorySpinner.getSelectedItem().toString();
-//        String maxPriceString = priceEditText.getText().toString();
-//        double maxPrice = Double.MAX_VALUE;
-
-         selectedCategory = categorySpinner.getSelectedItem().toString();
-         maxPriceString = priceEditText.getText().toString();
-         maxPrice = Double.MAX_VALUE;
+        String selectedCategory = categorySpinner.getSelectedItem().toString();
+        String maxPriceString = priceEditText.getText().toString();
+        double maxPrice = Double.MAX_VALUE;
 
         // Attempt to parse the max price input, if any
         if (!maxPriceString.isEmpty()) {
@@ -180,7 +205,6 @@ public  void fillPizzas(List<Pizza> pizzas) {
                 return;
             }
         }
-
 
         Log.d("CustPizzaMenu", "Selected category: " + selectedCategory);
         Log.d("CustPizzaMenu", "Max price: " + maxPrice);
@@ -196,40 +220,28 @@ public  void fillPizzas(List<Pizza> pizzas) {
                 continue;
             }
 
-            Log.d("CustPizzaMenu", "Checking pizza: " + pizza.getName());
+            Log.d("CustPizzaMenu", "Checking pizza: " + pizza.getName() + " | Category: " + pizzaCategory + " | Price: " + pizzaPrice);
 
-            boolean matchesCategory = "All".equals(selectedCategory) || pizzaCategory.equals(selectedCategory);
-            boolean matchesPrice = pizzaPrice >= maxPrice;
+            boolean matchesCategory = "All".equalsIgnoreCase(selectedCategory) || pizzaCategory.equalsIgnoreCase(selectedCategory);
+            boolean matchesPrice = pizzaPrice <= maxPrice;
 
             Log.d("CustPizzaMenu", "Matches category: " + matchesCategory);
             Log.d("CustPizzaMenu", "Matches price: " + matchesPrice);
 
-            // Add pizza if it matches either category or price or both
-            if (matchesCategory || matchesPrice) {
+            // Add pizza if it matches both category and price
+            if (matchesCategory && matchesPrice) {
                 filteredPizzas.add(pizza);
             }
         }
 
         Log.d("CustPizzaMenu", "Filtered pizzas count: " + filteredPizzas.size());
 
+        if (filteredPizzas.isEmpty()) {
+            Toast.makeText(this, "No pizzas match the filter criteria", Toast.LENGTH_SHORT).show();
+        }
 
         fillPizzas(filteredPizzas);
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

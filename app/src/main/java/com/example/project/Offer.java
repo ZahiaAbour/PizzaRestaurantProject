@@ -1,5 +1,7 @@
 package com.example.project;
 
+import java.util.Date;
+
 public class Offer {
     private int ID;
     private Pizza pizza;
@@ -7,10 +9,19 @@ public class Offer {
     private double discount=0;
     private int quantity= 1;
     private double price_after= 0;
+    private Date start_date;
+    private Date end_date;
 
-//    private start_date;
-//    private end_date;
-
+    public Offer(Pizza pizza, String size, double discount, int quantity,
+                 double price_after, Date start_date, Date end_date) {
+        this.pizza = pizza;
+        this.size = size;
+        this.discount = discount;
+        this.quantity = quantity;
+        this.price_after = price_after;
+        this.start_date = start_date;
+        this.end_date = end_date;
+    }
 
     public Offer(int ID, Pizza pizza, double discount, int quantity, double price_after) {
         this.ID = ID;
@@ -89,5 +100,21 @@ public class Offer {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
+    }
+
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 }

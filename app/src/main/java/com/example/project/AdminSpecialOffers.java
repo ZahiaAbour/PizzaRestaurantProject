@@ -49,13 +49,14 @@
 
 package com.example.project;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -67,8 +68,12 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminSpecialOffers extends AppCompatActivity {
 
@@ -76,6 +81,13 @@ public class AdminSpecialOffers extends AppCompatActivity {
     private EditText quantityEditText, newPriceEditText;
     private TextView oldPriceTextView, finalPriceTextView;
     private DataBaseHelper dataBaseHelper;
+
+    private TextView startDateText;
+    private TextView finishDateText;
+    private Button selectDateButton;
+    private Date startDate;
+    private Button selectDateButton2;
+    private Date finishDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +118,17 @@ public class AdminSpecialOffers extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pizzaNames);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         spinner.setAdapter(adapter);
 
+
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.pizza_sizes, R.layout.spinner_list);
+
+        adapter2.setDropDownViewResource( R.layout.spinner_list);
 
         sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -128,6 +148,7 @@ public class AdminSpecialOffers extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedPizza = spinner.getSelectedItem().toString();
                 updateOffer(selectedSize[0]);
+
 
             }
 
@@ -190,18 +211,82 @@ public class AdminSpecialOffers extends AppCompatActivity {
                 addOffer();
             }
         });
+
+
+        startDateText = findViewById(R.id.startDateText);
+        selectDateButton = findViewById(R.id.selectDateButton);
+
+        finishDateText = findViewById(R.id.finishDateText);
+        selectDateButton2 = findViewById(R.id.selectDateButton2);
+
+//        selectDateButton.setOnClickListener(view -> showDatePickerDialog(startDateText));
+//        selectDateButton2.setOnClickListener(view -> showDatePickerDialog(finishDateText));
+
+        selectDateButton.setOnClickListener(view -> showDatePickerDialog(startDateText, true));
+        selectDateButton2.setOnClickListener(view -> showDatePickerDialog(finishDateText, false));
+
     }
-    private void updateOffer(String selectedSize ) {
+
+
+
+    private void showDatePickerDialog(TextView dateTextView, boolean isStartDate) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    calendar.set(selectedYear, selectedMonth, selectedDay);
+                    Date selectedDate = calendar.getTime();
+
+                    if (isStartDate) {
+                        startDate = selectedDate;
+                        updateDateTextView(dateTextView, startDate);
+                    } else {
+                        finishDate = selectedDate;
+                        if (startDate!=null){
+                            if (finishDate.before(startDate)) {
+                                Toast.makeText(this, "End date cannot be before start date", Toast.LENGTH_LONG).show();
+                                finishDate = null;
+                                dateTextView.setText("");
+                                dateTextView.setText("Select End Date");
+                            } else {
+                                updateDateTextView(dateTextView, finishDate);
+
+                            }
+                        }
+                        else{
+                            Toast.makeText(this, "please enter a start date first", Toast.LENGTH_LONG).show();
+                            dateTextView.setText("Select End Date");
+                        }
+
+                    }
+                },
+                year, month, day);
+
+        datePickerDialog.show();
+    }
+
+    private void updateDateTextView(TextView dateTextView, Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String formattedDate = dateFormat.format(date);
+        dateTextView.setText(formattedDate);
+    }
+
+    private void updateOffer(String selectedSize) {
         double discount;
         String quantityStr = quantityEditText.getText().toString();
-        String discountStr= newPriceEditText.getText().toString();
-        if (!discountStr.isEmpty()){
-            discount= Double.valueOf(discountStr);
-            discount=discount/100;
+        String discountStr = newPriceEditText.getText().toString();
+
+        if (!discountStr.isEmpty()) {
+            discount = Double.valueOf(discountStr);
+            discount = discount / 100;
+        } else {
+            discount = 0;
         }
-        else {
-            discount=0;
-        }
+
         if (!quantityStr.isEmpty()) {
             try {
                 int quantity = Integer.parseInt(quantityStr);
@@ -213,16 +298,23 @@ public class AdminSpecialOffers extends AppCompatActivity {
                         break;
                     }
                 }
+
                 if (selectedPizza != null) {
                     Offer offer = new Offer();
 
                     offer.setPizza(selectedPizza);
-                    offer.setPrice(selectedSize , quantity);
+                    offer.setPrice(selectedSize, quantity);
                     Log.d("AdminSpecialOffers", "********** offer " + offer.getPrice_after());
-                    oldPriceTextView.setText(String.valueOf(offer.getPrice_after()));
+                    oldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", offer.getPrice_after()));
                     offer.setDiscount(discount);
-                    offer.setPrice(selectedSize , quantity);
-                    finalPriceTextView.setText(String.valueOf(offer.getPrice_after()));
+                    offer.setPrice(selectedSize, quantity);
+
+                    finalPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", offer.getPrice_after()));
+
+
+                    // Set the start and end dates
+                    offer.setStart_date(startDate);
+                    offer.setEnd_date(finishDate);
                 }
             } catch (NumberFormatException e) {
                 Log.e("EditText", "Invalid quantity input", e);
@@ -234,6 +326,52 @@ public class AdminSpecialOffers extends AppCompatActivity {
             finalPriceTextView.setText(""); // Clear the price if the input is empty
         }
     }
+
+
+
+    //    private void updateOffer(String selectedSize ) {
+//        double discount;
+//        String quantityStr = quantityEditText.getText().toString();
+//        String discountStr= newPriceEditText.getText().toString();
+//        if (!discountStr.isEmpty()){
+//            discount= Double.valueOf(discountStr);
+//            discount=discount/100;
+//        }
+//        else {
+//            discount=0;
+//        }
+//        if (!quantityStr.isEmpty()) {
+//            try {
+//                int quantity = Integer.parseInt(quantityStr);
+//                String selectedPizzaName = spinner.getSelectedItem().toString();
+//                Pizza selectedPizza = null;
+//                for (Pizza pizza : CustPizzaMenu.all_pizzas) {
+//                    if (pizza.getName().equals(selectedPizzaName)) {
+//                        selectedPizza = pizza;
+//                        break;
+//                    }
+//                }
+//                if (selectedPizza != null) {
+//                    Offer offer = new Offer();
+//
+//                    offer.setPizza(selectedPizza);
+//                    offer.setPrice(selectedSize , quantity);
+//                    Log.d("AdminSpecialOffers", "********** offer " + offer.getPrice_after());
+//                    oldPriceTextView.setText(String.valueOf(offer.getPrice_after()));
+//                    offer.setDiscount(discount);
+//                    offer.setPrice(selectedSize , quantity);
+//                    finalPriceTextView.setText(String.valueOf(offer.getPrice_after()));
+//                }
+//            } catch (NumberFormatException e) {
+//                Log.e("EditText", "Invalid quantity input", e);
+//                oldPriceTextView.setText(""); // Clear the price if input is invalid
+//                finalPriceTextView.setText("");
+//            }
+//        } else {
+//            oldPriceTextView.setText(""); // Clear the price if the input is empty
+//            finalPriceTextView.setText(""); // Clear the price if the input is empty
+//        }
+//    }
     private void addOffer() {
         String selectedPizzaName = spinner.getSelectedItem().toString();
         String selectedSizeString= sizeSpinner.getSelectedItem().toString();
@@ -284,15 +422,16 @@ public class AdminSpecialOffers extends AppCompatActivity {
 
         offer.getPizza().setImageUrl(selectedPizza.getImageUrl()); // Set your image URL here
         offer.getPizza().setCategory(selectedPizza.getCategory()); // Set your category here
-
+        offer.setStart_date(startDate);
+        offer.setEnd_date(finishDate);
 
 
 
 
         dataBaseHelper.insertOffer(offer);
         Toast.makeText(this, "Offer added successfully", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AdminSpecialOffers.this, CustSpecialOffers.class);
-        AdminSpecialOffers.this.startActivity(intent);
+//        Intent intent = new Intent(AdminSpecialOffers.this, CustSpecialOffers.class);
+//        AdminSpecialOffers.this.startActivity(intent);
         finish();
     }
 }

@@ -1,17 +1,87 @@
-<!-- activity_favorites.xml -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wood3">
+
 
     <LinearLayout
-        android:id="@+id/OrdersLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- Other UI elements, if any -->
+        <TextView
+            android:id="@+id/noFavoritesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:text="No orders YET!"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:visibility="gone" />
+
+
+        <ImageView
+            android:id="@+id/cry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:srcCompat="@drawable/crying_pizza" />
+
+
+        <LinearLayout
+            android:id="@+id/orders_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Placeholder for dynamically added order items -->
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
 
     </LinearLayout>
+
+
 </ScrollView>
+
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent">-->
+
+<!--<ScrollView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_alignParentTop="true"-->
+<!--    android:layout_above="@id/fragment_container">-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/orders_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
+<!--        &lt;!&ndash; Placeholder for dynamically added order items &ndash;&gt;-->
+<!--    </LinearLayout>-->
+<!--</ScrollView>-->
+
+<!--&lt;!&ndash; Fragment container for OrderDetailsFragment &ndash;&gt;-->
+<!--<FrameLayout-->
+<!--    android:id="@+id/fragment_container"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_alignParentBottom="true"-->
+<!--    android:layout_alignParentTop="true"-->
+<!--    android:visibility="gone"/>-->
+<!--</RelativeLayout>-->

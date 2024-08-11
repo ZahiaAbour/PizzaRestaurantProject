@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Regestration extends AppCompatActivity  {
+public class Regestration extends AppCompatActivity {
     private Button signUpButton, signInButton;
     public List<Pizza> pizzas;
 
@@ -24,12 +24,12 @@ public class Regestration extends AppCompatActivity  {
         TextView signupTextView = (TextView) findViewById(R.id.signupMainText);
         Button signinButton = (Button) findViewById(R.id.signinMainButton);
 
-        signupTextView.setPaintFlags(signupTextView.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        signupTextView.setPaintFlags(signupTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(Regestration.this,Login.class);
+                Intent intent = new Intent(Regestration.this, Login.class);
                 Regestration.this.startActivity(intent);
                 finish();
             }
@@ -38,7 +38,7 @@ public class Regestration extends AppCompatActivity  {
         signupTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(Regestration.this,Signup.class);
+                Intent intent = new Intent(Regestration.this, Signup.class);
                 Regestration.this.startActivity(intent);
                 finish();
             }

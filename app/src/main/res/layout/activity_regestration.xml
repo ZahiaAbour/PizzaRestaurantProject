@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wood3"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -11,10 +12,11 @@
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="117dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:paddingTop="35dp"
         android:text="Pizza Restaurant"
-        android:textColor="#2196F3"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteY="731dp" />
@@ -24,7 +26,7 @@
         android:layout_width="175dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:backgroundTint="#03A9F4"
+        android:backgroundTint="#d63e12"
         android:gravity="center"
         android:text="Log in"
         android:textColor="@color/white"
@@ -38,7 +40,7 @@
         android:layout_gravity="center"
         android:text="New here?"
         android:textAlignment="center"
-        android:textColor="#83C0F1"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold|italic" />
 
@@ -47,7 +49,7 @@
         android:layout_width="175dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:backgroundTint="#03A9F4"
+        android:backgroundTint="#d63e12"
         android:gravity="center"
         android:text="Sign up"
         android:textColor="@color/white"

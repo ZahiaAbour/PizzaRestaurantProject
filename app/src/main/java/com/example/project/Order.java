@@ -1,37 +1,58 @@
 package com.example.project;
 
+import java.util.Date;
+
 public class Order {
     private int ID;
 //    private String date;
 
-    private int cust_id;
+    private String cust_email;
     private Pizza pizza;
     private String size= "small";
     private double price;
     private int quantity= 1;
-//    private String details;
+    private Date orderDate;
 
 
-    public Order(int id, int cust_id, Pizza pizza, String size, double price, int quantity) {
+
+    public Order(int id, String cust_email, Pizza pizza, String size, double price, int quantity) {
         this.ID = id;
-        this.cust_id = cust_id;
+        this.cust_email = cust_email;
         this.pizza = pizza;
         this.size = size;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public Order(int custId, Pizza newPizza, String size, double price, int quantity) {
+    public Order(String cust_email, Pizza newPizza, String size, double price, int quantity) {
 //        this.ID = id;
-        this.cust_id = custId;
+        this.cust_email = cust_email;
         this.pizza = newPizza;
         this.size = size;
         this.price = price;
         this.quantity = quantity;
     }
 
+    public Order(String cust_email, Pizza newPizza, String size, double price, int quantity, Date date) {
+//        this.ID = id;
+        this.cust_email = cust_email;
+        this.pizza = newPizza;
+        this.size = size;
+        this.price = price;
+        this.quantity = quantity;
+        this.orderDate=date;
+    }
+
     public Order() {
 
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public int getID() {
@@ -42,13 +63,7 @@ public class Order {
         this.ID = ID;
     }
 
-    public int getCust_id() {
-        return cust_id;
-    }
 
-    public void setCust_id(int cust_id) {
-        this.cust_id = cust_id;
-    }
 
     public Pizza getPizza() {
         return pizza;
@@ -84,7 +99,17 @@ public class Order {
         }
 
     }
+    public void setPrice(double price){
+        this.price=price;
+    }
 
+    public String getCust_email() {
+        return cust_email;
+    }
+
+    public void setCust_email(String cust_email) {
+        this.cust_email = cust_email;
+    }
 
     public int getQuantity() {
         return quantity;

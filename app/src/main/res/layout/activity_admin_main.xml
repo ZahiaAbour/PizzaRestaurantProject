@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Main content layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2E2525">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:context=".ProfileActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/InfotextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="View and Update your info"
+                    android:textSize="30sp"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivProfilePicture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_default_profile" />
+
+            <!-- Change Profile Picture Button -->
+            <Button
+                android:id="@+id/btnChangeProfilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#d63e12"
+                android:text="Change Profile Picture" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/F_NametextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="First Name"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/etFirstName"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="First Name"
+                    android:textColor="@color/white"
+                    android:textColorHint="#A3A3A3"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/L_NametextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Last Name"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/etLastName"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    android:textColor="@color/white"
+                    android:textColorHint="#A3A3A3"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/gendertextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gender"
+                    android:textColor="@color/white"/>
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/PasswordtextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Password"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"
+                    android:textColorHint="#A3A3A3"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/PhonetextView"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Phone Number"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/etPhoneNumber"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:inputType="phone"
+                    android:textColor="@color/white"
+                    android:textColorHint="#A3A3A3"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="#d63e12"
+                android:text="Update Info" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- NavigationView -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/admin_nav_header"
+        app:menu="@menu/admin_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/drawer_layout"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp"-->
+<!--        tools:context=".ProfileActivity">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/InfotextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:text="View and Update your info"-->
+<!--                android:textSize="30sp"-->
+<!--                android:textStyle="bold|italic" />-->
+<!--        </LinearLayout>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivProfilePicture"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:src="@drawable/ic_default_profile" />-->
+
+<!--        &lt;!&ndash; Change Profile Picture Button &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/btnChangeProfilePicture"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:backgroundTint="#d63e12"-->
+<!--            android:text="Change Profile Picture" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/F_NametextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="First Name" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etFirstName"-->
+<!--                android:layout_width="270dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="First Name" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/L_NametextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Last Name" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etLastName"-->
+<!--                android:layout_width="270dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Last Name" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/gendertextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Gender" />-->
+
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner3"-->
+<!--                android:layout_width="220dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/PasswordtextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Password" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etPassword"-->
+<!--                android:layout_width="270dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Password"-->
+<!--                android:inputType="textPassword" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/PhonetextView"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Phone Number" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etPhoneNumber"-->
+<!--                android:layout_width="270dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Phone Number"-->
+<!--                android:inputType="phone" />-->
+<!--        </LinearLayout>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnSave"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:backgroundTint="#d63e12"-->
+<!--            android:text="Update Info" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/nav_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:headerLayout="@layout/admin_nav_header"-->
+<!--        app:menu="@menu/admin_menu" />-->
+
+<!--</androidx.drawerlayout.widget.DrawerLayout>-->
+
+
+<!--    &lt;!&ndash;<?xml version="1.0" encoding="utf-8"?>&ndash;&gt;-->
+<!--    &lt;!&ndash;<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"&ndash;&gt;-->
+<!--    &lt;!&ndash;    xmlns:app="http://schemas.android.com/apk/res-auto"&ndash;&gt;-->
+<!--    &lt;!&ndash;    xmlns:tools="http://schemas.android.com/tools"&ndash;&gt;-->
+<!--    &lt;!&ndash;    android:id="@+id/drawer_layout"&ndash;&gt;-->
+<!--    &lt;!&ndash;    android:layout_width="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;    android:layout_height="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;    tools:context=".MainActivity">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <androidx.constraintlayout.widget.ConstraintLayout&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="match_parent">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;        &lt;!&ndash; Your main content goes here &ndash;&gt;&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    </androidx.constraintlayout.widget.ConstraintLayout>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <com.google.android.material.navigation.NavigationView&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/nav_view"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_gravity="start"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:headerLayout="@layout/cust_nav_header"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:menu="@menu/customer_menu" />&ndash;&gt;-->
+
+
+
+<!--    &lt;!&ndash;</androidx.drawerlayout.widget.DrawerLayout>&ndash;&gt;-->

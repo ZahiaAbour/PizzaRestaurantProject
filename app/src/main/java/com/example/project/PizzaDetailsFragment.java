@@ -266,7 +266,9 @@ package com.example.project;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -284,6 +286,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.Date;
+
 public class PizzaDetailsFragment extends Fragment {
 
     private static final String ARG_PIZZA_NAME = "pizza_name";
@@ -297,6 +301,8 @@ public class PizzaDetailsFragment extends Fragment {
     private String pizzaURL;
     private String pizzaCategory;
     private int pizzaId;
+    String user_email;
+    private SharedPreferences sharedPreferences;
 
     public PizzaDetailsFragment() {
         // Required empty public constructor
@@ -324,6 +330,8 @@ public class PizzaDetailsFragment extends Fragment {
             pizzaCategory = getArguments().getString(ARG_PIZZA_CATEGORY);
             pizzaId = getArguments().getInt(ARG_PIZZA_ID);
         }
+
+
     }
 
     @Override
@@ -338,6 +346,10 @@ public class PizzaDetailsFragment extends Fragment {
         ImageButton addToFavoritesButton = view.findViewById(R.id.addToFavoritesButton);
         Button orderButton = view.findViewById(R.id.order_button);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        user_email = sharedPreferences.getString("email", "");
+
+
 
 
         pizzaNameTextView.setText(pizzaName);
@@ -348,11 +360,11 @@ public class PizzaDetailsFragment extends Fragment {
 
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext(), "DB", null, 1);
-        boolean isFavorite = dataBaseHelper.isPizzaInFavorites(pizzaId);
+        boolean isFavorite = dataBaseHelper.isPizzaInFavorites(pizzaId, user_email);
         addToFavoritesButton.setImageResource(isFavorite ? R.drawable.ic_heart_filled : R.drawable.ic_heart_outline);
 
         addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
-            boolean isFavorite = dataBaseHelper.isPizzaInFavorites(pizzaId);
+            boolean isFavorite = dataBaseHelper.isPizzaInFavorites(pizzaId, user_email);
 
             @Override
             public void onClick(View v) {
@@ -361,11 +373,11 @@ public class PizzaDetailsFragment extends Fragment {
                 Pizza newPizza = new Pizza(pizzaId, pizzaName, pizzaPrice, pizzaURL, pizzaCategory);
 
                 if (isFavorite) {
-                    dataBaseHelper.insertPizza(newPizza);
+                    dataBaseHelper.insertPizza(newPizza, user_email);
 
                 } else {
 
-                    dataBaseHelper.delete_Pizza_from_favs(pizzaId);
+                    dataBaseHelper.delete_Pizza_from_favs(pizzaId, user_email);
 
                 }
             }
@@ -403,6 +415,9 @@ public class PizzaDetailsFragment extends Fragment {
                         order.setPrice(selectedSize, quantity);
                         order.setQuantity(quantity);
                         order.setSize(selectedSize);
+                        order.setCust_email(user_email);
+                        //
+                        order.setOrderDate(new Date());
 
 
                         double price = order.getPrice();
@@ -431,6 +446,9 @@ public class PizzaDetailsFragment extends Fragment {
                         order.setPrice(selectedSize, quantity);
                         order.setQuantity(quantity);
                         order.setSize(selectedSize);
+                        order.setCust_email(user_email);
+                        //
+                        order.setOrderDate(new Date());
 
 
                         double price = order.getPrice();

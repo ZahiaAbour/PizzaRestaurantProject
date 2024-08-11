@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/a_profile"
+            android:title="Admin profile"/>
+
+        <item
+            android:id="@+id/a_addAdmin"
+            android:title="Add admin"/>
+
+        <item
+            android:id="@+id/a_orders"
+            android:title="View all orders"/>
+
+        <item
+            android:id="@+id/a_offers"
+            android:title="Add Special Offers"/>
+
+        <item
+            android:id="@+id/summary"
+            android:title="Order Summary"/>
+
+        <item
+            android:id="@+id/a_logout"
+            android:title="Logout"/>
+
+
+    </group>
+</menu>
