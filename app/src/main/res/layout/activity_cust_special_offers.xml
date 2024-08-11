@@ -1,0 +1,17 @@
+<!-- activity_favorites.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood3">
+
+
+    <LinearLayout
+        android:id="@+id/OffersLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Other UI elements, if any -->
+
+    </LinearLayout>
+</ScrollView>
